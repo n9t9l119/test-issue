@@ -1,0 +1,58 @@
+Тестовое задание: 
+Реализовать HTTP-сервер для хранения очереди запросов (FIFO) со следующим API запросов
+
+    1. sendMessage – принимает в качестве тела сообщения XML следующего формата
+	<?xml version='1.0' encoding='UTF-8'?>
+        <Message>
+	    <Header>
+	        <To>Name</To>
+		<From>Name</From>
+		<Timestamp>year-monthTdayThours:minutes:second</Timestamp>
+	    </Header>
+	    <Title>Title</Title>
+	    <Body>Long text</Body>
+        </Message>
+
+    и возвращает пустой ответ в случае успешного помещения сообщения в очередь
+    
+    2. getMessage – принимает пустой запрос и возвращает XML со следующим сообщением в очереди. Сообщение из очереди удаляется и в последствии не будет найдено методом findMessages
+    
+    3. findMessages – принимает в качестве тела сообщения JSON следующего формата
+        {
+            "filter":{
+                "from":"Name",
+                "to":"Name"
+            }
+        }
+    и возвращает результаты выбора сообщений, находящихся в очереди, по фильтру (отправитель, получатель, дата, заголовок) в виде
+       <?xml version='1.0' encoding='UTF-8'?>
+       <Messages>
+           <Message>
+		<Header>
+			<To>Name</To>
+			<From>Name</From>
+			<Timestamp>year-monthTdayThours:minutes:second</Timestamp>
+		</Header>
+		<Title>Title</Title>
+
+		<Body>Long text</Body>
+	  </Message>
+             ...
+	  <Message>
+		<Header>
+			<To>Name</To>
+			<From>Name</From>
+			<Timestamp>year-monthTdayThours:minutes:second</Timestamp>
+		</Header>
+		<Title>Title</Title>
+
+		<Body>Long text</Body>
+	  </Message>
+      <Messages>
+
+
+Требования к присылаемым решениям:
+
+В качестве решения принимается скрипт(ы) на python, запускаются следующим образом 
+python script.py –port 1234
+После этого по адресу 127.0.0.1 и указанному порту можно обращаться с указанными выше функциями
